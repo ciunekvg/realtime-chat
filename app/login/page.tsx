@@ -4,11 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function Login({ searchParams }: { searchParams: { message: string } }) {
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -25,7 +21,7 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/authenticated");
   };
 
   const signUp = async (formData: FormData) => {
@@ -52,10 +48,10 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 ">
       <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="absolute left-8 top-8 flex items-center group text-sm py-1 px-3 rounded-md no-underline bg-mint_cream hover:bg-licorice text-night font-bold uppercase hover:text-mint_cream hover:border hover:border-mint_cream"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -71,48 +67,33 @@ export default function Login({
         >
           <polyline points="15 18 9 12 15 6" />
         </svg>{" "}
-        Back
+        Home
       </Link>
 
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+      <form className="flex flex-col w-full justify-center gap-2 text-foreground ">
         <label className="text-md" htmlFor="email">
           Email
         </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
+        <input className="rounded-md px-4 py-2 bg-inherit border mb-6" name="email" placeholder="email@example.com" required />
         <label className="text-md" htmlFor="password">
           Password
         </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
+        <input className="rounded-md px-4 py-2 bg-inherit border mb-6" type="password" name="password" placeholder="••••••••" required />
         <SubmitButton
           formAction={signIn}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2 bg-mint_cream hover:bg-licorice text-night font-bold uppercase hover:text-mint_cream  hover:border-mint_cream"
           pendingText="Signing In..."
         >
           Sign In
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2 bg-mint_cream hover:bg-licorice text-night font-bold uppercase hover:text-mint_cream  hover:border-mint_cream"
           pendingText="Signing Up..."
         >
           Sign Up
         </SubmitButton>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
-          </p>
-        )}
+        {searchParams?.message && <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">{searchParams.message}</p>}
       </form>
     </div>
   );
