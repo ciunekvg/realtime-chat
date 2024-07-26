@@ -1,6 +1,6 @@
 "use client";
 
-import { getUser, insertMessage } from "@/utils/supabase/actions";
+// import { getUser, insertMessage } from "@/utils/supabase/actions";
 import { useState } from "react";
 
 export default function InputMessage() {
@@ -10,7 +10,7 @@ export default function InputMessage() {
     const user = await getUser();
 
     if (message) {
-      await insertMessage(message, user?.email || null);
+      // await insertMessage(message, user?.email || null);
       setMessage("");
     }
   };
